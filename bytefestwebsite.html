@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BYTEFEST // ACCESS GRID</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load VT323 (Pixel/Terminal font) for a stronger retro aesthetic --><link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <!-- Custom Tailwind configuration for the Tron Ares glow effect --><script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Updated to a darker, more modern crimson
+                        'ares-red': '#D00020', 
+                        'grid-black': '#000000',
+                    },
+                    boxShadow: {
+                        // Shadows updated to use the new color
+                        'glow-sm': '0 0 4px #D00020',
+                        'glow-md': '0 0 10px #D00020',
+                        'glow-lg': '0 0 20px #D00020',
+                    },
+                    fontFamily: {
+                        // Use VT323 for the pixel-art/terminal look
+                        mono: ['VT323', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base styling for the dark/digital aesthetic */
+        body {
+            background-color: #000000;
+            color: #D00020;
+            /* Animated background gradient (subtle grid/scanlines) - uses new color */
+            background-image: linear-gradient(0deg, transparent 95%, rgba(208, 0, 32, 0.1) 100%),
+                              linear-gradient(90deg, transparent 98%, rgba(208, 0, 32, 0.1) 100%);
+            background-size: 50px 50px; /* Size of the grid cells */
+            animation: grid-scroll 30s linear infinite;
+        }
+
+        /* Keyframe for background movement */
+        @keyframes grid-scroll {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 50px 50px; /* Scrolls the background by one cell size */
+            }
+        }
+
+        /* Class for the pulsating glow effect on text and borders (Optimized for fluidity) */
+        .ares-glow {
+            text-shadow: 0 0 6px #D00020;
+            /* Smoother, slightly slower pulse */
+            animation: pulse-glow 3.5s ease-in-out infinite alternate; 
+            /* Hints to the browser to use hardware acceleration for smooth animation */
+            will-change: text-shadow, opacity; 
+        }
+        
+        /* Specific white glow for key focus words */
+        .white-glow {
+            text-shadow: 0 0 8px #ffffff, 0 0 12px #D00020;
+            animation: white-pulse-glow 3.5s ease-in-out infinite alternate; 
+            will-change: text-shadow, opacity;
+        }
+
+        /* Keyframe for white glow */
+        @keyframes white-pulse-glow {
+            from {
+                opacity: 0.8; 
+                text-shadow: 0 0 6px #ffffff, 0 0 10px #D00020;
+            }
+            to {
+                opacity: 1;
+                text-shadow: 0 0 10px #ffffff, 0 0 20px #D00020;
+            }
+        }
+
+
+        /* Custom border/shadow styling for key containers */
+        .border-ares {
+            border-color: #D00020;
+            box-shadow: 0 0 4px #D00020; 
+        }
+
+        /* Keyframe for the subtle pulse animation (Red) */
+        @keyframes pulse-glow {
+            from {
+                opacity: 0.85; 
+                text-shadow: 0 0 5px #D00020; 
+            }
+            to {
+                opacity: 1;
+                text-shadow: 0 0 12px #D00020; 
+            }
+        }
+
+        /* Separator style for section headers */
+        .event-header {
+            border-bottom: 2px solid #D00020;
+        }
+
+        /* Styling for the corner logos: forces image to be white */
+        .white-logo {
+            filter: brightness(0) invert(1) drop-shadow(0 0 4px #D00020); /* Forces colors to white and adds a red glow */
+            opacity: 0.9;
+            transition: all 0.3s ease-in-out;
+        }
+        .white-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* New styles for the cropped NMS Tigers logo */
+        .cropped-tiger-logo {
+            background-image: url('https://github.com/auxiliumgnms/Auxilium-repo/blob/main/NMSTigersnoBG.png?raw=true');
+            background-size: 250%; /* Zoom in by 2.5x to crop from all sides */
+            background-position: center; /* Center the zoomed image */
+            background-repeat: no-repeat;
+            filter: brightness(0) invert(1) drop-shadow(0 0 4px #D00020); /* Forces white and adds glow */
+            opacity: 0.9;
+            transition: all 0.3s ease-in-out;
+        }
+        .cropped-tiger-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 font-mono bg-grid-black antialiased relative">
+    
+    <!-- Outer Container - Acts as the Digital Terminal/Console --><!-- Added 'relative' class to make absolute positioning of inner logos work correctly --><div class="max-w-6xl mx-auto border-4 border-ares rounded-lg shadow-glow-lg p-6 md:p-10 transition-all duration-300 relative">
+
+        <!-- Top Left Logo (GEMS NMS) - Positioned absolutely inside the main container --><a href="https://www.gemsnms-dubai.com/" 
+           target="_blank" 
+           class="absolute top-[-10px] left-[-10px] z-50 p-4"
+        >
+            <img src="https://github.com/auxiliumgnms/Auxilium-repo/blob/main/NMSSIdeLogoWithText.png?raw=true" 
+                 alt="GEMS New Millennium School Logo" 
+                 class="w-24 md:w-32 white-logo"
+            >
+        </a>
+
+        <!-- Top Right Logo (NMS Tigers) - Adjusted size to match GEMS NMS logo --><a href="https://www.gemsnms-dubai.com/cocurricular-activities/sports/" 
+           target="_blank" 
+           class="absolute top-[-10px] right-[-10px] z-50 p-4"
+        >
+            <!-- Adjusted w- and h- classes to make it smaller --><div class="w-20 h-20 md:w-28 md:h-28 cropped-tiger-logo"></div>
+        </a>
+
+
+        <!-- Header: Protocol Activation --><!-- Added pt-16 to push the content down past the absolutely positioned logos --><header class="text-center mb-8 pt-16">
+            
+            <!-- BYTEFEST LOGO IMAGE --><img src="https://github.com/auxiliumgnms/Auxilium-repo/blob/main/Bytefesthackathonlogo.png?raw=true" 
+                 alt="Bytefest Logo" 
+                 class="w-full max-w-xs md:max-w-lg mx-auto filter brightness-125"
+                 style="filter: drop-shadow(0 0 10px #D00020);"
+            >
+            
+            <!-- SUBTITLE TEXT CHANGE - Border removed and padding adjusted --><p class="text-lg md:text-3xl text-ares-red mt-4 font-light uppercase pb-6">
+                // MORE THAN JUST A <span class="white-glow text-white font-bold">HACKATHON</span> //
+            </p>
+        </header>
+
+        <!-- Registration Button --><div class="text-center mb-16">
+            <a href="https://register.bytefestnms.com" 
+               target="_blank" 
+               class="inline-block px-10 py-4 text-xl md:text-3xl font-bold uppercase bg-ares-red text-grid-black rounded-sm 
+                      border-4 border-ares-red shadow-glow-md hover:shadow-glow-lg transition-all duration-500 ease-in-out 
+                      transform hover:scale-[1.03] active:scale-95 tracking-wider"
+               >
+                &gt;&gt; REGISTER NOW &lt;&lt;
+            </a>
+        </div>
+
+        <!-- Section 1: Core Identity / Grid Data --><section class="mb-16">
+            <h2 class="text-xl md:text-3xl uppercase mb-8 text-ares-red event-header pb-3">
+                &lt;CORE_IDENTITY / GRID_DATA&gt;
+            </h2>
+
+            <!-- Data Table/List using Grid for responsiveness --><div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm md:text-lg">
+                
+                <!-- Data Block 1: Event Name --><div class="bg-black border border-ares p-4 rounded-sm shadow-glow-sm col-span-1 md:col-span-3">
+                    <span class="font-bold text-ares-red block">// EVENT NAME</span>
+                    <span class="text-white block mt-1 ares-glow text-xl">BYTEFEST - MORE THAN JUST A HACKATHON</span>
+                </div>
+
+                <!-- Data Block 2: Organizer --><div class="bg-black border border-ares p-4 rounded-sm shadow-glow-sm">
+                    <span class="font-bold text-ares-red block">// ORGANIZER</span>
+                    <span class="text-white block mt-1">GEMS NEW MILLENNIUM SCHOOL DUBAI</span>
+                </div>
+
+                <!-- Data Block 3: Date --><div class="bg-black border border-ares p-4 rounded-sm shadow-glow-sm">
+                    <span class="font-bold text-ares-red block">// DATE</span>
+                    <span class="text-white block mt-1">NOVEMBER 18, 2025</span>
+                </div>
+
+                <!-- Data Block 4: Contact --><div class="bg-black border border-ares p-4 rounded-sm shadow-glow-sm">
+                    <span class="font-bold text-ares-red block">// CONTACT</span>
+                    <span class="text-white block mt-1">bytefestgnms@gmail.com</span>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Section 2: Program Matrix / Epic Events --><section class="mb-16">
+            <h2 class="text-xl md:text-3xl uppercase mb-8 text-ares-red event-header pb-3">
+                &lt;THE_SIX_EPIC_EVENTS / PROGRAM_MATRIX&gt;
+            </h2>
+
+            <!-- Events Grid --><div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- Event 1: Hackrush (Smoother transition duration applied) --><div class="p-6 border-4 border-l-0 border-r-0 border-ares shadow-glow-sm bg-black/50 rounded-sm transform transition-all duration-500 ease-in-out hover:shadow-glow-md hover:scale-[1.02]">
+                    <h3 class="text-3xl font-bold ares-glow mb-2 flex items-center">
+                        <span class="mr-3 text-4xl">🚀</span> HACKRUSH
+                    </h3>
+                    <p class="text-gray-300 text-base mb-3">
+                        A high-stakes, multi-round coding marathon designed to test the resilience, efficiency, and problem-solving prowess of the most skilled programmers.
+                    </p>
+                    <div class="border-t border-dashed border-ares pt-2">
+                        <p class="text-sm font-bold text-ares-red">GRADE & CAPACITY:</p>
+                        <p class="text-white text-sm">Open to Grades 9-12/Year 10-13. Maximum 5 Students per school.</p>
+                    </div>
+                </div>
+
+                <!-- Event 2: CircuitRiot (Smoother transition duration applied) --><div class="p-6 border-4 border-l-0 border-r-0 border-ares shadow-glow-sm bg-black/50 rounded-sm transform transition-all duration-500 ease-in-out hover:shadow-glow-md hover:scale-[1.02]">
+                    <h3 class="text-3xl font-bold ares-glow mb-2 flex items-center">
+                        <span class="mr-3 text-4xl">🤖</span> CIRCUIT RIOT
+                    </h3>
+                    <p class="text-gray-300 text-base mb-3">
+                        A thrilling robotics tournament where student-built machines will race, navigate complex mazes, and push the limits of engineering and design.
+                    </p>
+                    <div class="border-t border-dashed border-ares pt-2">
+                        <p class="text-sm font-bold text-ares-red">GRADE & CAPACITY:</p>
+                        <p class="text-white text-sm">Grade 9-12 / Year 10 - 13. Maximum 5 Students per school, 20 teams total.</p>
+                    </div>
+                </div>
+
+                <!-- Event 3: Codalo (Smoother transition duration applied) --><div class="p-6 border-4 border-l-0 border-r-0 border-ares shadow-glow-sm bg-black/50 rounded-sm transform transition-all duration-500 ease-in-out hover:shadow-glow-md hover:scale-[1.02]">
+                    <h3 class="text-3xl font-bold ares-glow mb-2 flex items-center">
+                        <span class="mr-3 text-4xl">🧱</span> CODALO
+                    </h3>
+                    <p class="text-gray-300 text-base mb-3">
+                        A premier robotics battle competition providing a platform for students to engage with AI, fostering collaboration and innovation across two exciting rounds: TITAN and ROBOT.IO.
+                    </p>
+                    <div class="border-t border-dashed border-ares pt-2">
+                        <p class="text-sm font-bold text-ares-red">GRADE & CAPACITY:</p>
+                        <p class="text-white text-sm">Grade 9-12 / Year 10 - 13. Maximum of 6 Students per school.</p>
+                    </div>
+                </div>
+                
+                <!-- Event 4: Vybe Code (Smoother transition duration applied) --><div class="p-6 border-4 border-l-0 border-r-0 border-ares shadow-glow-sm bg-black/50 rounded-sm transform transition-all duration-500 ease-in-out hover:shadow-glow-md hover:scale-[1.02]">
+                    <h3 class="text-3xl font-bold ares-glow mb-2 flex items-center">
+                        <span class="mr-3 text-4xl">💡</span> VYBE CODE
+                    </h3>
+                    <p class="text-gray-300 text-base mb-3">
+                        A rapid, real-world problem-solving sprint. Teams will have to develop practical tech solutions to pressing global issues using agentic AI coding tools.
+                    </p>
+                    <div class="border-t border-dashed border-ares pt-2">
+                        <p class="text-sm font-bold text-ares-red">GRADE & CAPACITY:</p>
+                        <p class="text-white text-sm">Grade 7-10/Year 8-11. Maximum of 5 Students per school.</p>
+                    </div>
+                </div>
+
+                <!-- Event 5: GameGrid (Smoother transition duration applied) --><div class="p-6 border-4 border-l-0 border-r-0 border-ares shadow-glow-sm bg-black/50 rounded-sm transform transition-all duration-500 ease-in-out hover:shadow-glow-md hover:scale-[1.02]">
+                    <h3 class="text-3xl font-bold ares-glow mb-2 flex items-center">
+                        <span class="mr-3 text-4xl">🎮</span> GAMEGRID
+                    </h3>
+                    <p class="text-gray-300 text-base mb-3">
+                        A competitive 1v1 e-sports tournament where students will face off in FC'25 and Rocket League.
+                    </p>
+                    <div class="border-t border-dashed border-ares pt-2">
+                        <p class="text-sm font-bold text-ares-red">GRADE & CAPACITY:</p>
+                        <p class="text-white text-sm">Grade 9-12 / Year 10 - 13. Maximum of 1 Student per Game.</p>
+                    </div>
+                </div>
+
+                <!-- Event 6: Launch Pad (Smoother transition duration applied) --><div class="p-6 border-4 border-l-0 border-r-0 border-ares shadow-glow-sm bg-black/50 rounded-sm transform transition-all duration-500 ease-in-out hover:shadow-glow-md hover:scale-[1.02]">
+                    <h3 class="text-3xl font-bold ares-glow mb-2 flex items-center">
+                        <span class="mr-3 text-4xl">🚀</span> LAUNCH PAD
+                    </h3>
+                    <p class="text-gray-300 text-base mb-3">
+                        An exciting coding challenge for younger participants. A race to see who can solve the problems to launch their rocket first.
+                    </p>
+                    <div class="border-t border-dashed border-ares pt-2">
+                        <p class="text-sm font-bold text-ares-red">GRADE & CAPACITY:</p>
+                        <p class="text-white text-sm">Grade 6-8/Year 7-9. First come, first serve. One Student per School.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer / System Exit Message --><footer class="mt-16 pt-8 border-t-2 border-ares text-center">
+            <h3 class="text-3xl md:text-4xl uppercase mb-4 text-ares-red ares-glow tracking-widest">
+                // SYSTEM EXIT SEQUENCE INITIATED //
+            </h3>
+            <p class="text-xl md:text-2xl text-white font-bold tracking-widest">
+                SEE YOU ON NOVEMBER 18TH
+            </p>
+            <div class="w-1/4 h-1 bg-ares-red mx-auto mt-6 shadow-glow-sm"></div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
